@@ -30,7 +30,11 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Invalid credentials');
 
-    const token = this.jwtService.sign({ id: user._id, email: user.email });
-    return { access_token: token };
+    const token = this.jwtService.sign({
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    });
+    return { access_token: token, role: user.role };
   }
 }
